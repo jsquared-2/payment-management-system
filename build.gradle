@@ -1,0 +1,29 @@
+// Plugin Definition
+plugins {
+    id 'java'
+}
+
+// Payment Management System Properties
+group = 'com.pms.api'
+version = '1.0-SNAPSHOT'
+
+// Module Configuration
+subprojects {
+
+    // Plugin Application
+    apply plugin: 'java'
+
+    // Repository Sources
+    repositories {
+        mavenCentral()
+    }
+
+    // Setting Java Version for Subprojects
+    java {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(21))
+        }
+    }
+}

@@ -1,0 +1,8 @@
+# Application
+server:
+    port: 8082
+
+# Springboot
+spring:
+    application:
+        name: payment-service

@@ -1,0 +1,20 @@
+// Plugin Definition
+plugins {
+    id 'java-library'
+}
+
+// Common Properties
+group = 'com.pms.api.common'
+version = '1.0-SNAPSHOT'
+
+// Dependencies
+dependencies {
+    // Testing
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+// Testing
+tasks.named('test', Test) {
+    useJUnitPlatform()
+}

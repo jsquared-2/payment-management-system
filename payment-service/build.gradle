@@ -1,0 +1,36 @@
+// Plugin Definition
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.4.4'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+// Payment Service Properties
+group = 'com.pms.api.payment'
+version = '1.0-SNAPSHOT'
+
+// Dependencies
+dependencies {
+    // Payment Management System Packages
+    implementation project(":common")
+
+    // Springboot Packages
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.6'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // Data Sources
+    runtimeOnly 'org.postgresql:postgresql'
+
+    // Testing
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'com.h2database:h2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+// Testing
+tasks.named('test', Test) {
+    useJUnitPlatform()
+}

@@ -1,0 +1,81 @@
+# Project Metadata
+name: "payment-service-dev"
+
+# Service Definitions
+services:
+    # Dependencies
+    ## Database
+    database:
+        image: postgres:17
+        container_name: database
+        environment:
+            POSTGRES_USER: dev_user
+            POSTGRES_PASSWORD: password
+            POSTGRES_DB: pms_payment_dev
+        ports:
+            - "54322:5432"
+        networks:
+            - pms-payment-network
+        volumes:
+            - payment-data:/var/lib/postgresql/data
+        deploy:
+            restart_policy:
+                condition: on-failure
+                delay: 5s
+                max_attempts: 2
+                window: 30s
+
+    ## Database UI
+    pgadmin:
+        image: dpage/pgadmin4:9.2.0
+        container_name: pgadmin
+        environment:
+            PGADMIN_DEFAULT_EMAIL: dev@example.com
+            PGADMIN_DEFAULT_PASSWORD: password
+        depends_on:
+            - database
+        ports:
+            - "8022:80"
+        networks:
+            - pms-payment-network
+        deploy:
+            restart_policy:
+                condition: on-failure
+                delay: 5s
+                max_attempts: 2
+                window: 30s
+
+    # Microservice
+    api:
+        build:
+            context: ../../
+            dockerfile: payment-service/Dockerfile
+        environment:
+            SPRING_PROFILES_ACTIVE: dev
+            SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/pms_payment_dev
+            SPRING_DATASOURCE_USERNAME: dev_user
+            SPRING_DATASOURCE_PASSWORD: password
+        ports:
+            - "8082:8082"
+        depends_on:
+            - database
+            - pgadmin
+        networks:
+            - pms-payment-network
+        deploy:
+            restart_policy:
+                condition: on-failure
+                delay: 5s
+                max_attempts: 2
+                window: 30s
+
+# Network Definitions
+networks:
+    pms-payment-network:
+        name: pms-payment-network
+        driver: bridge
+
+# Volume Definitions
+volumes:
+    payment-data:
+        name: "payment-service-data"
