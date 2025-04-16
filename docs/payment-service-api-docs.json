@@ -1,0 +1,179 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Payment Service",
+        "license": {
+            "name": "MIT License",
+            "url": "https://opensource.org/license/MIT"
+        },
+        "version": "1.0-SNAPSHOT"
+    },
+    "servers": [
+        {
+            "description": "Payment Service API"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Payment",
+            "description": "Microservice for handling payment data"
+        }
+    ],
+    "paths": {
+        "/payments": {
+            "get": {
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Get all payments",
+                "operationId": "getPayments",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PaymentResponse"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Create a new payment",
+                "operationId": "createPayment",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PaymentRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "headers": {
+                            "Location": {
+                                "description": "Relative URI of the newly created payment",
+                                "style": "simple",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaymentResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/payments/{id}": {
+            "get": {
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Get a payment",
+                "operationId": "getPaymentById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaymentResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "PaymentRequest": {
+                "type": "object",
+                "properties": {
+                    "customer_id": {
+                        "type": "string",
+                        "minLength": 1,
+                        "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+                    },
+                    "payment_method": {
+                        "type": "string",
+                        "enum": [
+                            "DEBIT",
+                            "CREDIT"
+                        ],
+                        "minLength": 1
+                    },
+                    "amount": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "COMPLETED",
+                            "FAILED"
+                        ],
+                        "minLength": 1
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "readOnly": true
+                    }
+                }
+            },
+            "PaymentResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "customer_id": {
+                        "type": "string"
+                    },
+                    "payment_method": {
+                        "type": "string"
+                    },
+                    "amount": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
