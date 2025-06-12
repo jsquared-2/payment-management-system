@@ -10,7 +10,7 @@
     <img src="https://img.shields.io/badge/Gradle-8.13-blue">
     <br>
     <img src="https://img.shields.io/badge/License-MIT-purple">
-    <a href="https://jsquared-2.github.io/payment-management-system/index.html" target="_blank"><img src="https://img.shields.io/badge/Read-Docs-62a03f;?style=flat&logo=swagger"></a>
+    <a href="https://jsquared-2.github.io/payment-management-system/index.html" target="_blank"><img src="https://img.shields.io/badge/Read%20the-Docs-62a03f;?style=flat&logo=swagger"></a>
 </div>
 
 ## Introduction
