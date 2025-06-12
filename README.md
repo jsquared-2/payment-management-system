@@ -42,7 +42,7 @@ git clone https://github.com/jsquared-2/payment-management-system.git
 From there `cd` into the directory:
 
 ```bash
-cd payment-management-service
+cd payment-management-system
 ```
 
 <div align="right"><a href="#table-of-contents">↑ Back to Top ↑</a></div>
@@ -97,7 +97,7 @@ of the docs is available, each method has a `Try it out` button that can be used
 ![](assets/swagger-docs-local.png)
 
 If the project is not set up locally, it is possible to access a read-only version of the documentation
-at [https://jsquared-2.github.io/payment-management-service/index.html](https://jsquared-2.github.io/payment-management-system/index.html).
+at [https://jsquared-2.github.io/payment-management-system/index.html](https://jsquared-2.github.io/payment-management-system/index.html).
 This version has the same information and **DOES NOT** support trying out the API.
 
 ![](assets/swagger-docs-remote.png)
